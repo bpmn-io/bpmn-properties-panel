@@ -131,7 +131,9 @@ export default function BpmnPropertiesPanel(props) {
   const providers = getProviders(selectedElement);
 
   const groups = useMemo(() => {
-    return reduce(providers, function(groups, provider) {
+    return reduce(providers, function(groups, p) {
+      const { provider } = p;
+
       const updater = provider.getGroups(selectedElement);
 
       return updater(groups);

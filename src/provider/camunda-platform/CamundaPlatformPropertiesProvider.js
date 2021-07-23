@@ -55,7 +55,7 @@ const LOW_PRIORITY = 500;
 export default class CamundaPlatformPropertiesProvider {
 
   constructor(propertiesPanel) {
-    propertiesPanel.registerProvider(LOW_PRIORITY, this);
+    propertiesPanel.registerProvider(LOW_PRIORITY, 'platform', this);
   }
 
   getGroups(element) {
@@ -90,7 +90,7 @@ export default class CamundaPlatformPropertiesProvider {
       FieldInjectionGroup(element),
       FormGroup(element),
       HistoryCleanupGroup(element),
-      InputOutputGroup(element),
+      ...InputOutputGroup(element),
       JobExecutionGroup(element),
       ListenerGroup(element),
       MultiInstanceGroup(element),
@@ -447,33 +447,43 @@ function FormGroup(element) {
 // @TODO: implement, hide with no entries in the meantime
 function ListenerGroup(element) {
   const group = {
-    label: 'Listener',
+    label: 'Listeners',
     id: 'CamundaPlatform__Listener',
-    component: Group,
-    entries: []
+    component: ListGroup,
+    items: [],
+    add: (props) => <div class="bio-properties-panel-group-header-button">{props.children}</div>
   };
 
-  if (group.entries.length) {
-    return group;
-  }
-
-  return null;
+  return group;
 }
 
 // @TODO: implement, hide with no entries in the meantime
 function InputOutputGroup(element) {
-  const group = {
-    label: 'Input Output',
-    id: 'CamundaPlatform__InputOutput',
-    component: Group,
-    entries: []
-  };
 
-  if (group.entries.length) {
-    return group;
+  if (!is(element, 'bpmn:ServiceTask')) {
+    return [];
   }
 
-  return null;
+  const inputGroup = {
+    label: 'Input',
+    id: 'CamundaPlatform__Input',
+    component: ListGroup,
+    items: [],
+    add: (props) => <div class="bio-properties-panel-group-header-button">{props.children}</div>
+  };
+
+  const outputGroup = {
+    label: 'Output',
+    id: 'CamundaPlatform__Output',
+    component: ListGroup,
+    items: [],
+    add: (props) => <div class="bio-properties-panel-group-header-button">{props.children}</div>
+  };
+
+  return [
+    inputGroup,
+    outputGroup
+  ];
 }
 
 // @TODO: implement, hide with no entries in the meantime

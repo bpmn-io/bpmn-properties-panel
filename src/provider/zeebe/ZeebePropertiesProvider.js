@@ -240,7 +240,7 @@ function getGroups(element) {
 export default class ZeebePropertiesProvider {
 
   constructor(propertiesPanel) {
-    propertiesPanel.registerProvider(LOW_PRIORITY, this);
+    propertiesPanel.registerProvider(LOW_PRIORITY, 'zeebe', this);
   }
 
   getGroups(element) {

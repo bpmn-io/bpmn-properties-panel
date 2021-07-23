@@ -112,7 +112,7 @@ function getGroups(element) {
 export default class BpmnPropertiesProvider {
 
   constructor(propertiesPanel) {
-    propertiesPanel.registerProvider(this);
+    propertiesPanel.registerProvider('bpmn', this);
   }
 
   getGroups(element) {

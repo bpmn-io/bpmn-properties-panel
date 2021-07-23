@@ -9,6 +9,10 @@ import {
   query as domQuery
 } from 'min-dom';
 
+import {
+  find
+} from 'min-dash';
+
 const DEFAULT_PRIORITY = 1000;
 
 /**
@@ -91,20 +95,35 @@ export default class BpmnPropertiesPanelRenderer {
    * Register a new properties provider to the properties panel.
    *
    * @param {Number} [priority]
+   * @param {String} key
    * @param {PropertiesProvider} provider
    */
-  registerProvider(priority, provider) {
+  registerProvider(priority, key, provider) {
 
     if (!provider) {
-      provider = priority;
+      provider = key;
+      key = priority;
       priority = DEFAULT_PRIORITY;
     }
 
+    // todo: raise error on duplicated keys?
+    if (this.findProvider(key)) {
+      return;
+    }
+
     this._eventBus.on('propertiesPanel.getProviders', priority, function(event) {
-      event.providers.push(provider);
+      event.providers.push({
+        key,
+        provider
+      });
     });
 
     this._eventBus.fire('propertiesPanel.providersChanged');
+  }
+
+  findProvider(key) {
+    const providers = this._getProviders();
+    return find(providers, p => p.key === key);
   }
 
   _getProviders() {
