@@ -2,7 +2,6 @@ import Group from '@bpmn-io/properties-panel/lib/components/Group';
 import ListGroup from '@bpmn-io/properties-panel/lib/components/ListGroup';
 
 import {
-  ConditionProps,
   HeaderProps,
   InputProps,
   MessageProps,
@@ -62,20 +61,6 @@ function OutputGroup(element) {
     label: 'Output',
     component: ListGroup,
     ...OutputProps(element)
-  };
-}
-
-function ConditionGroup(element) {
-
-  const entries = [
-    ...ConditionProps({ element })
-  ];
-
-  return {
-    id: 'condition',
-    label: 'Condition',
-    entries,
-    component: Group
   };
 }
 
@@ -171,12 +156,6 @@ function getGroups(element) {
 
   if (formGroup.entries.length) {
     groups.push(formGroup);
-  }
-
-  const conditionGroup = ConditionGroup(element);
-
-  if (conditionGroup.entries.length) {
-    groups.push(conditionGroup);
   }
 
   const targetGroup = TargetGroup(element);

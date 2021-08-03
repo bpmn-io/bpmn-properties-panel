@@ -9,7 +9,7 @@ import {
 
 import {
   createElement
-} from '../utils/ElementUtil';
+} from '../../zeebe/utils/ElementUtil';
 
 import {
   useService

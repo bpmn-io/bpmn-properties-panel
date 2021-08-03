@@ -9,6 +9,7 @@ import {
 } from '@bpmn-io/properties-panel/lib/components/entries/Checkbox';
 
 import {
+  ConditionProps,
   DocumentationProps,
   ErrorProps,
   ExecutableProperty,
@@ -68,6 +69,20 @@ function DocumentationGroup(element) {
 
 }
 
+function ConditionGroup(element) {
+
+  const entries = [
+    ...ConditionProps({ element })
+  ];
+
+  return {
+    id: 'condition',
+    label: 'Condition',
+    entries,
+    component: Group
+  };
+}
+
 function ErrorGroup(element) {
 
   const entries = [
@@ -104,6 +119,12 @@ function getGroups(element) {
     GeneralGroup(element),
     DocumentationGroup(element)
   ];
+
+  const conditionGroup = ConditionGroup(element);
+
+  if (conditionGroup.entries.length) {
+    groups.push(conditionGroup);
+  }
 
   if (isErrorSupported(element)) {
     groups.push(ErrorGroup(element));

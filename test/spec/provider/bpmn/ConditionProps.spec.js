@@ -19,29 +19,23 @@ import {
 } from 'bpmn-js/lib/util/ModelUtil';
 
 import BpmnPropertiesPanel from 'src/render';
+import BpmnPropertiesProvider from 'src/provider/bpmn';
 import CoreModule from 'bpmn-js/lib/core';
 import ModelingModule from 'bpmn-js/lib/features/modeling';
 import SelectionModule from 'diagram-js/lib/features/selection';
-import ZeebePropertiesProvider from 'src/provider/zeebe';
-
-import zeebeModdleExtensions from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import diagramXML from './ConditionProps.bpmn';
 
 
-describe('provider/zeebe - ConditionProps', function() {
+describe('provider/bpmn - ConditionProps', function() {
 
   const testModules = [
     BpmnPropertiesPanel,
     CoreModule,
     ModelingModule,
     SelectionModule,
-    ZeebePropertiesProvider
+    BpmnPropertiesProvider
   ];
-
-  const moddleExtensions = {
-    zeebe: zeebeModdleExtensions
-  };
 
   let container;
 
@@ -51,7 +45,6 @@ describe('provider/zeebe - ConditionProps', function() {
 
   beforeEach(bootstrapPropertiesPanel(diagramXML, {
     modules: testModules,
-    moddleExtensions,
     debounceInput: false
   }));
 

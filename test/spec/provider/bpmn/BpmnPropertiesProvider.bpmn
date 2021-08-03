@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1jjb961" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1jjb961" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1">
   <bpmn:process id="Process_1j5bpos" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" />
     <bpmn:task id="Task_1" />
@@ -10,9 +10,29 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_1j4k787" />
     </bpmn:startEvent>
     <bpmn:receiveTask id="ReceiveTask_1" />
+    <bpmn:startEvent id="Event_1kcitmr">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_0meunws">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Event_1kcitmr" targetRef="Gateway_0meunws" />
+    <bpmn:task id="Activity_0soxp8a">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Gateway_0meunws" targetRef="Activity_0soxp8a" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1j5bpos">
+      <bpmndi:BPMNEdge id="Flow_1v9s39b_di" bpmnElement="Flow_1">
+        <di:waypoint x="215" y="440" />
+        <di:waypoint x="265" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15lq64c_di" bpmnElement="Flow_2">
+        <di:waypoint x="315" y="440" />
+        <di:waypoint x="370" y="440" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -24,6 +44,15 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_17nav0i_di" bpmnElement="ReceiveTask_1">
         <dc:Bounds x="360" y="240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1kcitmr_di" bpmnElement="Event_1kcitmr">
+        <dc:Bounds x="179" y="422" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0meunws_di" bpmnElement="Gateway_0meunws" isMarkerVisible="true">
+        <dc:Bounds x="265" y="415" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0soxp8a_di" bpmnElement="Activity_0soxp8a">
+        <dc:Bounds x="370" y="400" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1ej25yw_di" bpmnElement="BoundaryEvent_1">
         <dc:Bounds x="322" y="172" width="36" height="36" />
