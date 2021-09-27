@@ -23,6 +23,7 @@ export { OutMappingPropagationProps } from './OutMappingPropagationProps';
 export { OutMappingProps } from './OutMappingProps';
 export { OutputProps } from './OutputProps';
 export { ExecutionListenerProps } from './ListenerProps';
+export { TaskListenerProps } from './ListenerProps';
 export { ProcessVariablesProps } from './ProcessVariablesProps';
 export { ScriptTaskProps } from './ScriptTaskProps';
 export { TasklistProps } from './TasklistProps';

@@ -29,6 +29,7 @@ import {
   OutMappingProps,
   OutputProps,
   ExecutionListenerProps,
+  TaskListenerProps,
   ProcessVariablesProps,
   ScriptTaskProps,
   TasklistProps,
@@ -114,6 +115,7 @@ export default class CamundaPlatformPropertiesProvider {
       HistoryCleanupGroup(element),
       JobExecutionGroup(element),
       ExecutionListenerGroup(element),
+      TaskListenerGroup(element),
       MultiInstanceGroup(element),
       TasklistGroup(element)
     ];
@@ -548,6 +550,21 @@ function ExecutionListenerGroup(element) {
     id: 'CamundaPlatform__ExecutionListener',
     component: ListGroup,
     ...ExecutionListenerProps({ element })
+  };
+
+  if (group.items) {
+    return group;
+  }
+
+  return null;
+}
+
+function TaskListenerGroup(element) {
+  const group = {
+    label: 'Task listener',
+    id: 'CamundaPlatform__TaskListener',
+    component: ListGroup,
+    ...TaskListenerProps({ element })
   };
 
   if (group.items) {
