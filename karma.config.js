@@ -1,7 +1,8 @@
 const path = require('path');
 const {
   DefinePlugin,
-  NormalModuleReplacementPlugin
+  NormalModuleReplacementPlugin,
+  ProvidePlugin
 } = require('webpack');
 
 const basePath = '.';
@@ -66,14 +67,12 @@ module.exports = function(karma) {
             test: /\.m?js$/,
             exclude: /node_modules/,
             use: {
-              loader: 'babel-loader',
+              loader: 'esbuild-loader',
               options: {
-                plugins: [
-                  [ '@babel/plugin-transform-react-jsx', {
-                    'importSource': 'preact',
-                    'runtime': 'automatic'
-                  } ]
-                ]
+                loader: 'jsx',
+                target: 'es2015',
+                jsxFactory: 'React.h',
+                jsxFragment: 'React.Fragment'
               }
             }
           },
@@ -95,6 +94,9 @@ module.exports = function(karma) {
         )
       },
       plugins: [
+        new ProvidePlugin({
+          React: 'preact',
+        }),
         new DefinePlugin({
 
           // @barmac: process.env has to be defined to make @testing-library/preact work
