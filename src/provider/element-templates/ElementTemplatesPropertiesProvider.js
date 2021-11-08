@@ -20,6 +20,12 @@ const CAMUNDA_ERROR_EVENT_DEFINITION_TYPE = 'camunda:errorEventDefinition',
 
 const LOWER_PRIORITY = 300;
 
+const PLATFORM_UPDATED_GROUPS = [
+  'CamundaPlatform__Input',
+  'CamundaPlatform__Output',
+  'CamundaPlatform__Errors'
+];
+
 
 export default class ElementTemplatesPropertiesProvider {
 
@@ -42,7 +48,7 @@ export default class ElementTemplatesPropertiesProvider {
 
       const templatesGroup = {
         element,
-        id: 'template',
+        id: 'ElementTemplates__Template',
         label: 'Template',
         component: ElementTemplatesGroup,
         entries: TemplateProps({ element, elementTemplates: this._elementTemplates })
@@ -57,7 +63,7 @@ export default class ElementTemplatesPropertiesProvider {
         const customPropertiesGroups = CustomProperties({ element, elementTemplate });
 
         // (2) add custom properties groups
-        addGroupsAfter('template', groups, [ ...customPropertiesGroups ]);
+        addGroupsAfter('ElementTemplates__Template', groups, [ ...customPropertiesGroups ]);
 
         // (3) update existing groups with element template specific properties
         updateInputGroup(groups, element, elementTemplate);
@@ -65,7 +71,12 @@ export default class ElementTemplatesPropertiesProvider {
         updateErrorsGroup(groups, element, elementTemplate);
       }
 
-      // @TODO(barmac): add template-specific groups and remove according to entriesVisible
+      // (4) apply entries visible
+      if (getTemplateId(element)) {
+        const visibleGroups = elementTemplate ? PLATFORM_UPDATED_GROUPS : [];
+
+        groups = filterWithEntriesVisible(elementTemplate || {}, groups, visibleGroups);
+      }
 
       return groups;
     };
@@ -109,6 +120,11 @@ function updateInputGroup(groups, element, elementTemplate) {
       inputGroup.items.push(item);
     }
   });
+
+  // remove if empty
+  if (!inputGroup.items.length) {
+    groups.splice(groups.indexOf(inputGroup), 1);
+  }
 }
 
 function updateOutputGroup(groups, element, elementTemplate, injector) {
@@ -133,6 +149,11 @@ function updateOutputGroup(groups, element, elementTemplate, injector) {
       outputGroup.items.push(item);
     }
   });
+
+  // remove if empty
+  if (!outputGroup.items.length) {
+    groups.splice(groups.indexOf(outputGroup), 1);
+  }
 }
 
 function updateErrorsGroup(groups, element, elementTemplate) {
@@ -157,6 +178,11 @@ function updateErrorsGroup(groups, element, elementTemplate) {
       errorsGroup.items.push(item);
     }
   });
+
+  // remove if empty
+  if (!errorsGroup.items.length) {
+    groups.splice(groups.indexOf(errorsGroup), 1);
+  }
 }
 
 /**
@@ -169,7 +195,7 @@ function addGroupsAfter(id, groups, groupsToAdd) {
   const index = groups.findIndex(group => group.id === id);
 
   if (index !== -1) {
-    groups.splice(index, 0, ...groupsToAdd);
+    groups.splice(index + 1, 0, ...groupsToAdd);
   } else {
 
     // add in the beginning if group with provided id is missing
@@ -179,4 +205,18 @@ function addGroupsAfter(id, groups, groupsToAdd) {
 
 function findGroup(groups, id) {
   return groups.find((group) => group.id === id);
+}
+
+function filterWithEntriesVisible(template, groups, visibleGroups = []) {
+  if (!template.entriesVisible) {
+    return groups.filter(group => {
+      return (
+        group.id === 'general' ||
+        group.id.startsWith('ElementTemplates__') ||
+        visibleGroups.includes(group.id)
+      );
+    });
+  }
+
+  return groups;
 }
