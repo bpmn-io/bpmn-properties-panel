@@ -1,0 +1,58 @@
+{
+  "name": "bpmn-i18n",
+  "uri": "http://www.omg.org/spec/BPMN/non-normative/extensions/i18n/1.0",
+  "prefix": "i18n",
+  "types": [
+    {
+      "name": "ExtensionElementsWithTranslations",
+      "extends": [ "bpmn:ExtensionElements" ],
+      "properties": [
+        {
+          "name": "translations",
+          "type": "Translation",
+          "isMany": true
+        }
+      ]
+    },
+    {
+      "name": "Translation",
+      "properties": [
+        {
+          "name": "id",
+          "isAttr": true,
+          "isId": true,
+          "type": "String"
+        },
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        },
+        {
+          "name": "target",
+          "isAttr": true,
+          "type": "String",
+          "default": "@name"
+        },
+        {
+          "name": "textFormat",
+          "isAttr": "true",
+          "type": "String",
+          "default": "text/plain"
+        }
+      ]
+    },
+    {
+      "name": "Other",
+      "superClass": [
+        "Element"
+      ]
+    }
+  ],
+  "enumerations": [],
+  "associations": [],
+  "xml": {
+    "tagAlias": "lowerCase",
+    "typePrefix": "t"
+  }
+}
