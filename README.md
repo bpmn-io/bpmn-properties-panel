@@ -1,4 +1,4 @@
-> 👷‍♀️👷‍♂️🏗
+> This project has been integrated into [bpmn-io/bpmn-js-properties-panel](https://github.com/bpmn-io/bpmn-js-properties-panel) and is not developed anymore in this repository. Go to the linked repo to check the further progress on the project.
 
 # @bpmn-io/bpmn-properties-panel
 
