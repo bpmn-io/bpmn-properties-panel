@@ -5,11 +5,13 @@ All notable changes to [`@bpmn-io/bpmn-properties-panel`](https://github.com/bpm
 ## Unreleased
 
 ___Note:__ Yet to be released changes appear here._
-* `CHORE`: temporarily disable zeebe:calledDecision (since zeebe will not
-  support this for 1.3 release). To be re-enabled later
 
-* `CHORE`: add links to documentation for key fields of zeebe provider to better
-  guide the user
+## 0.5.2
+
+* `CHORE`: temporarily disable zeebe:calledDecision (since zeebe will not support this for 1.3 release). To be re-enabled later ([#201](https://github.com/bpmn-io/bpmn-properties-panel/pull/201))
+* `CHORE`: add links to documentation for key fields of zeebe provider to better guide the user ([#197](https://github.com/bpmn-io/bpmn-properties-panel/pull/197))
+* `FIX`: fix dataMarker for calledDecision#decisionId ([#196](https://github.com/bpmn-io/bpmn-properties-panel/pull/196))
+* `DEPS`: bump to `properties-panel@v0.8.1` ([#203](https://github.com/bpmn-io/bpmn-properties-panel/pull/203))
 
 ## 0.5.1
 
